@@ -28,6 +28,14 @@ class UserDataController extends Controller
             $set_admin = true;
         }
 
+
+        // check if email already exist
+        $email_query = UserData::where('email', $request -> email) -> get();
+
+        if($email_query -> isEmpty() == false){
+            return redirect(route('signup.form')) -> with('error', 'Email already exist');
+        } 
+
         // Hashed password with Bcrypt algorithm
         $hashed = Hash::make($request -> pwd);
 
@@ -38,7 +46,7 @@ class UserDataController extends Controller
 
         // if new user creation failed create error session
         if(!$new_user){
-            return redirect(route('create_account')) -> with('error', 'Error creating account');
+            return redirect(route('signup.form')) -> with('error', 'Error creating account');
         }
 
         return view('signin') -> with('success', 'New account created');
