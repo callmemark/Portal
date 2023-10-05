@@ -17,13 +17,20 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       	
+        @if(session() -> has('user_id'))
+
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href={{route('student.list')}}>List</a>
         </li>
 
         <li class="nav-item">
+          <a class="nav-link" href={{route('student.register.form')}}>Add-Student</a>
+        </li>
+
+        <li class="nav-item">
           <a class="nav-link" href={{route('user.logout')}}>Logout</a>
         </li>
+        @endif
 
       </ul>
       <form class="d-flex" role="search">

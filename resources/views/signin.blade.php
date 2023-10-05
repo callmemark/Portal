@@ -58,7 +58,7 @@
 
 				<button class='btn btn-dark mt-3' type='submit'>SignIn</button>
 				<button class='btn btn-secondary mt-3' type='link'>
-				<a href={{route('signup.form')}} />< SignUp </button>
+				<a href={{route('signup.form')}} /> SignUp </button>
 			</form>
 		</div>
 	</div>

@@ -22,10 +22,11 @@ class StudentRecordController extends Controller
         $new_record = StudentRecord::create($validated_data);
 
         if($new_record){
-            return redirect(route('register')) -> with('error', 'Error creating new record');
+            return redirect(route('student.list'));
         }
 
-        return redirect(route('register')) -> with('success', 'New record added');
+        // If error TODO
+        //return redirect(route('student.create')) -> with('success', 'New record added');
     }
 
     public function getAll(){
@@ -51,8 +52,8 @@ class StudentRecordController extends Controller
     }
 
     public function delete(StudentRecord $student){
-        $student -> delete();
-        return $this->getAll();
+        $student -> delete(); // TODO causing page expired
+        return redirect(route('student.list'));
     }
 
 
