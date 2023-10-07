@@ -25,7 +25,7 @@
 
 </style>
 
-<div class='container-fluid'>
+<div class='container'>
 	<div class='row'>
 		<div class='col-md-6 d-flex flex-column align-items-center justify-content-center'>
 			<p id='form-headline'><span id='sub-for4m-headline'>school </span><br> Portal</p>

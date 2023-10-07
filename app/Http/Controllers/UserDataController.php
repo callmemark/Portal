@@ -7,6 +7,8 @@ use App\Models\UserData;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
+
+
 class UserDataController extends Controller
 {
     public function create(Request $request)
@@ -27,7 +29,6 @@ class UserDataController extends Controller
         if($is_admin_checked){
             $set_admin = true;
         }
-
 
         // check if email already exist
         $email_query = UserData::where('email', $request -> email) -> get();
@@ -52,6 +53,8 @@ class UserDataController extends Controller
         return view('signin') -> with('success', 'New account created');
     }
 
+
+
     public function signin(Request $request)
     {
         // forget success and error session
@@ -69,13 +72,16 @@ class UserDataController extends Controller
 
         if($query -> isEmpty() == false){
             if(Hash::check($request -> pwd, $hashedpassword)){
+
                 session(['user_id' => $query-> pluck('id')[0]]);
-                return view('dashboard', ['email' => $request -> email]); 
+                session(['is_admin' => $query-> pluck('isadmin')[0]]);
+
+
+                return redirect(route('dashboard', ['permission', 'admin'])); 
             } else {
                 return view('signin') -> with('error', 'error signing in');
             }
         }
-
         return view('signin') -> with('error', 'error signing in');
     }
 

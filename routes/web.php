@@ -6,6 +6,12 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserDataController;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\StudentRecordController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\EnrollRecordController;
+
+use App\Http\Middleware\UserMiddleWare;
+
+
 
 
 Route::controller(UserAuthController::class) -> group(function(){
@@ -22,9 +28,10 @@ Route::controller(UserDataController::class) -> group(function(){
 
     Route::get('/user/lougout', 'logout') -> name('user.logout');
     Route::get('/create/account', 'signup') -> name('signup.form');
-    Route::get('/dashboard/{userid}', 'getdashboard') -> name('dashboard');
+    Route::get('/dashboard', 'getdashboard') -> name('dashboard');
 
 });
+
 
 Route::controller(StudentRecordController::class) -> group(function(){
 
@@ -44,5 +51,12 @@ Route::controller(SubjectController::class) -> group(function(){
     Route::get('/subjects', 'get') -> name('subject.form');
     Route::post('/subjects/new', 'create') -> name('subject.create');
     Route::post('/suject/{subject}/delete', 'delete') -> name('subject.delete');
-  
+    
+});
+
+
+Route::controller(EnrollRecordController::class) -> group(function(){
+
+    Route::post('/enrollment/create/{student}', 'create') -> name('enrollement.create');
+
 });

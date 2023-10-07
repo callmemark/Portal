@@ -2,7 +2,8 @@
 
 <div class='container'>
 	<div class='row'>
-		<div class='col-md-12'>
+		<div class='col-md-8'>
+			<h3 class='mt-3'>Student Data</h3>
 			<form action={{route('student.update', ['student' => $student])}} method='post'>
 				@csrf
 				@method('post')
@@ -35,16 +36,47 @@
 				
 				<button type='submit' class='btn btn-dark mt-5'>Update Student Data</button>
 			</form>
+		</div>
 
-			<div class="card mt-3">
+		<div class='col-md-4'>
+
+			<div class="card mt-5">
 			  <h5 class="card-header">Cannot Be Undone</h5>
 			  <div class="card-body">
 			    <form action={{route('student.delete', ['student' => $student])}} method='post'>
+			    	@csrf
+			    	@method('post')
 					<button type='submit' class='btn btn-danger'>Delete Student Registration</button>
 				</form>
 			  </div>
 			</div>
-			
+
+			<div class="card mt-3">
+			  <h5 class="card-header">Enroll To Subjects</h5>
+			  <div class="card-body">
+			    <form action={{route('enrollement.create', ['student' => $student])}} method='post'>
+			    	@csrf
+			    	@method('post')
+
+			    	<select class="form-select" aria-label="Subjects" name='subject-selected'>
+						<option selected>Select Subject</option>
+
+						@foreach($subjects as $subject)
+							<option value={{$subject}}>{{$subject->subject}}</option>
+						@endforeach
+					</select>
+
+					@foreach($errors as $err)
+						<p class='error'>$err</p>
+					@endforeach
+
+					@if(session() -> has('error'))
+						<p class='error'>{{session()->get('error')}}</p>
+					@endif
+					<button type='submit' class='btn btn-dark mt-3'>Enroll to selected subject</button>
+				</form>
+			  </div>
+			</div>
 		</div>
 	</div>
 </div>

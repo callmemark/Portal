@@ -24,10 +24,15 @@
 							</form>
 						</td>
 						<td>
+							<button class='btn btn-danger' data-bs-toggle="modal" data-bs-target="#delete-modal">Delete</button>
 							<form action={{route('subject.delete', ['subject' => $subject])}} method='post'>
 								@csrf
 								@method('post')
-								<button class='btn btn-danger'>Delete</button>
+
+								@include('components/confirmation-modal', 
+									[	'modal_id' => 'delete-modal',
+										'title' => 'Delete Data',
+										'message' => 'This action cannot be undone'])
 							</form>
 						</td>
 					</tr>
@@ -63,6 +68,7 @@
 
 				<button class='btn btn-dark mt-2' type='submit'>Add New Subject</button>
 			</form>
+
 		</div>
 	</div>
 </div>

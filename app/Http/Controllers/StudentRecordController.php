@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Models\StudentRecord;
+use App\Models\Subject;
+
+use App\Http\Middleware\AdminPrivellage;
 
 
 class StudentRecordController extends Controller
@@ -24,15 +28,14 @@ class StudentRecordController extends Controller
         if($new_record){
             return redirect(route('student.list'));
         }
-
-        // If error TODO
-        //return redirect(route('student.create')) -> with('success', 'New record added');
     }
 
     public function getAll(){
         $student_record = StudentRecord::all();
         return view('student-list', ['students' => $student_record]);
     }
+
+
 
     public function edit(Request $request, StudentRecord $student){
         $validated_data = $request -> validate([
@@ -47,19 +50,23 @@ class StudentRecordController extends Controller
         return $this->getAll();
     }
 
-    public function getedit(StudentRecord $student){
-        return view('student-edit', ['student' => $student]);
+
+
+    public function getedit(Request $request, StudentRecord $student){
+        $subjects = Subject::all();
+        return view('student-edit', ['student' => $student, 'subjects' => $subjects]);
     }
 
+
+
     public function delete(StudentRecord $student){
-        $student -> delete(); // TODO causing page expired
+        $student -> delete();
         return redirect(route('student.list'));
     }
+
 
 
     public function registerForm(){
         return view('student-register');
     }
-
-
 }
